@@ -1,0 +1,1 @@
+GT-token is a smart contract for Binance smart chain 
