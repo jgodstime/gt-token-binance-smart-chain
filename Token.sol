@@ -18,14 +18,15 @@ contract Token {
     
     constructor(){
         balances[msg.sender] = totalSupply; //msg.sender the address that sends the transaction (Whoever deploys the token, the admin of the the project )
+        
     }
     
-    function balanceOf(address owner) public view return(uint){
+    function balanceOf(address owner) public view returns(uint){
         return balances[owner];
     }
     
     // Owner can transfer to another address
-    function transfer(address to, uint value) public return(bool){
+    function transfer(address to, uint value) public returns(bool){
         require(balances[msg.sender] >= value, "Balance to low");
         balances[to] += value; 
         balances[msg.sender] -= value;
@@ -34,7 +35,7 @@ contract Token {
     }
     
     // Transfer for an address 
-    function transferFrom(address from, address to, uint value) public return(bool){
+    function transferFrom(address from, address to, uint value) public returns(bool){
         require(balances[from] >= value, "Balance to low");
         require(allowance[from][msg.sender] >= value, "Allowance too low"); //check amount that is allowed to send 
         balances[to] += value;
@@ -44,11 +45,12 @@ contract Token {
     }
     
     // Add an address that can transfer for you to another address with amount
-    function approve(address spender, uint value) public return(bool){
-        allowance[msg.owner][spender] = value;
-        emit Approval(msg.owner, spender, value);
+    function approve(address spender, uint value) public returns(bool){
+        allowance[msg.sender][spender] = value;
+        emit Approval(msg.sender, spender, value);
         return true;
     }
+    
     
     
 }
